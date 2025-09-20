@@ -54,6 +54,6 @@ To get a local copy up and running, follow these simple steps.
 
 ## 👥 Team Members
 
--   [cite_start]**Abhinav Singh** [cite: 71]
--   [cite_start]**Aastha** [cite: 71]
--   [cite_start]**Abhijeet Jha** [cite: 71]
+-   [cite_start]**Abhinav Singh** [https://github.com/abhinav-singh-fr]
+-   [cite_start]**Aastha** [https://github.com/Aastha-hub838]
+-   [cite_start]**Abhijeet Jha** [https://www.github.com/jhaabhijeet864]

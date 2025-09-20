@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Daily Habit & Medicine Tracker</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="./style.css" />
+	</head>
+	<body>
+		<header class="app-header">
+			<div class="brand">
+				<span class="material-icons-round brand-icon">health_and_safety</span>
+				<h1>Habit & Medicine Tracker</h1>
+			</div>
+			<div class="header-actions">
+				<button id="themeToggle" class="icon-btn" title="Toggle theme">
+					<span class="material-icons-round">dark_mode</span>
+				</button>
+				<a
+					href="https://github.com/jhaabhijeet864/Habit_and_Medicine_Tracker"
+					class="icon-btn"
+					target="_blank"
+					rel="noopener"
+					title="GitHub"
+					><span class="material-icons-round">open_in_new</span></a
+				>
+			</div>
+		</header>
+
+		<nav class="tabs" role="tablist">
+			<button class="tab active" data-tab="today" role="tab" aria-selected="true">
+				<span class="material-icons-round">schedule</span>
+				Today
+			</button>
+			<button class="tab" data-tab="all" role="tab" aria-selected="false">
+				<span class="material-icons-round">view_list</span>
+				All Reminders
+			</button>
+			<button class="tab" data-tab="analytics" role="tab" aria-selected="false">
+				<span class="material-icons-round">insights</span>
+				Analytics
+			</button>
+		</nav>
+
+		<main class="container">
+			<!-- Today View -->
+			<section id="view-today" class="view active" role="tabpanel">
+				<div class="panel">
+					<div class="panel-head">
+						<h2>Today</h2>
+						<div class="now" id="nowTime">--:--</div>
+					</div>
+					<p class="muted">Upcoming reminders for the day. You can mark them as completed.</p>
+
+					<ul id="todayList" class="card-list"></ul>
+
+					<div id="todayEmpty" class="empty">
+						<span class="material-icons-round">event_available</span>
+						<p>No reminders scheduled for today yet.</p>
+						<button class="btn" data-open-modal>
+							<span class="material-icons-round">add</span>
+							Add a reminder
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- All Reminders View -->
+			<section id="view-all" class="view" role="tabpanel">
+				<div class="panel">
+					<div class="panel-head">
+						<h2>All Reminders</h2>
+						<div class="actions">
+							<button class="btn" data-open-modal>
+								<span class="material-icons-round">add</span>
+								New
+							</button>
+						</div>
+					</div>
+
+					<div class="toolbar">
+						<div class="search">
+							<span class="material-icons-round">search</span>
+							<input id="searchInput" type="text" placeholder="Search reminders..." />
+						</div>
+						<div class="filters">
+							<label>
+								Type
+								<select id="filterType">
+									<option value="all">All</option>
+									<option value="medicine">Medicine</option>
+									<option value="habit">Habit</option>
+								</select>
+							</label>
+							<label>
+								Status
+								<select id="filterStatus">
+									<option value="all">All</option>
+									<option value="due">Due</option>
+									<option value="done">Done Today</option>
+								</select>
+							</label>
+						</div>
+					</div>
+
+					<ul id="allList" class="card-grid"></ul>
+
+					<div id="allEmpty" class="empty">
+						<span class="material-icons-round">playlist_add</span>
+						<p>No reminders yet. Create your first one.</p>
+						<button class="btn" data-open-modal>
+							<span class="material-icons-round">add</span>
+							Add a reminder
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- Analytics View -->
+			<section id="view-analytics" class="view" role="tabpanel">
+				<div class="panel">
+					<div class="panel-head">
+						<h2>Analytics</h2>
+					</div>
+
+					<div class="analytics">
+						<div class="metric">
+							<div class="ring" id="completionRing" style="--value: 0"></div>
+							<div class="metric-label">
+								<strong id="completionRate">0%</strong>
+								<span>Today's Completion</span>
+							</div>
+						</div>
+						<div class="metric">
+							<div class="big-number" id="streakCount">0</div>
+							<div class="metric-label">
+								<strong>day streak</strong>
+								<span>Longest active</span>
+							</div>
+						</div>
+						<div class="metric">
+							<div class="spark-bars" id="weekBars"></div>
+							<div class="metric-label">
+								<strong>Last 7 days</strong>
+								<span>Completion by day</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Modal -->
+		<dialog id="reminderModal" class="modal">
+			<form id="reminderForm" method="dialog">
+				<header>
+					<h3 id="modalTitle">Add Reminder</h3>
+					<button type="button" class="icon-btn" data-close-modal>
+						<span class="material-icons-round">close</span>
+					</button>
+				</header>
+				<div class="form-grid">
+					<label>
+						Name
+						<input id="reminderName" type="text" placeholder="e.g., Vitamin D" required />
+					</label>
+					<label>
+						Type
+						<select id="reminderType">
+							<option value="medicine">Medicine</option>
+							<option value="habit">Habit</option>
+						</select>
+					</label>
+					<label>
+						Time
+						<input id="reminderTime" type="time" required />
+					</label>
+				</div>
+				<footer>
+					<button type="submit" class="btn primary" id="saveReminderBtn">
+						<span class="material-icons-round">save</span>
+						Save
+					</button>
+					<button type="button" class="btn" data-close-modal>Cancel</button>
+				</footer>
+				<input type="hidden" id="reminderId" />
+			</form>
+		</dialog>
+
+		<!-- Toast -->
+		<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+		<script src="./script.js" defer></script>
+	</body>
+	</html>

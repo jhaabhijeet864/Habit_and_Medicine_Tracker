@@ -1,0 +1,108 @@
+:root{
+	--bg:#0b1020;
+	--panel:#121836;
+	--muted:#9aa3b2;
+	--text:#e6e9f0;
+	--primary:#6c8cff;
+	--primary-2:#7aa2ff33;
+	--accent:#22c55e;
+	--danger:#ef4444;
+	--border:#233055;
+	--ring:#1f2a4a;
+	--card:#0f142b;
+	--shadow:0 10px 30px rgba(0,0,0,.3);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+	margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+	background:radial-gradient(1000px 600px at 90% -10%, #1a2350 0%, rgba(10,14,30,0) 60%), var(--bg);
+	color:var(--text);
+}
+
+.app-header{
+	display:flex; align-items:center; justify-content:space-between;
+	padding:16px 20px; position:sticky; top:0; z-index:10; backdrop-filter:saturate(1.2) blur(6px);
+	background:linear-gradient(180deg, rgba(8,12,26,.85), rgba(8,12,26,.4)); border-bottom:1px solid var(--border);
+}
+.brand{display:flex; align-items:center; gap:10px}
+.brand h1{font-size:18px; margin:0; font-weight:700}
+.brand-icon{color:var(--primary)}
+.header-actions{display:flex; gap:8px}
+.icon-btn{display:inline-grid; place-items:center; width:36px; height:36px; border:1px solid var(--border); border-radius:10px; background:#0b1020; color:var(--text); cursor:pointer}
+.icon-btn:hover{border-color:#3a4b7e}
+
+.tabs{display:flex; gap:10px; padding:12px 20px; border-bottom:1px solid var(--border)}
+.tab{display:inline-flex; gap:8px; align-items:center; padding:10px 14px; border-radius:999px; border:1px solid var(--border); color:var(--text); background:linear-gradient(180deg, #0e1631, #0b1022); cursor:pointer}
+.tab.active{background:linear-gradient(180deg, #16224b, #101834); border-color:#3a4b7e; box-shadow:inset 0 0 0 1px #3a4b7e}
+
+.container{max-width:1050px; margin:24px auto; padding:0 16px}
+.view{display:none}
+.view.active{display:block}
+
+.panel{background:linear-gradient(180deg, #0f1633, #0c1229); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); padding:16px}
+.panel-head{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.panel h2{margin:0; font-size:18px}
+.now{font-variant-numeric:tabular-nums; color:var(--muted)}
+
+.muted{color:var(--muted); margin:8px 0 16px}
+
+.card-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px}
+.card-grid{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:12px}
+
+.card{display:grid; grid-template-columns:auto 1fr auto; gap:12px; align-items:center; padding:12px; border:1px solid var(--border); border-radius:14px; background:linear-gradient(180deg, #0b122a, #0b1124)}
+.card .left{display:flex; align-items:center; gap:10px}
+.chip{font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid var(--border); color:#b9c6ff; background:var(--primary-2)}
+.chip.habit{color:#8ef0b1; background:rgba(34,197,94,0.15)}
+.name{font-weight:600}
+.time{font-variant-numeric:tabular-nums; color:var(--muted)}
+
+.btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:12px; border:1px solid var(--border); color:var(--text); background:linear-gradient(180deg, #0e1631, #0b1022); cursor:pointer}
+.btn.primary{background:linear-gradient(180deg, #3a57ff, #2946e0); border-color:#4f66ff}
+.btn:hover{filter:brightness(1.05)}
+.btn.danger{background:linear-gradient(180deg, #e84848, #c83c3c); border-color:#ef4444}
+
+.toolbar{display:flex; gap:12px; flex-wrap:wrap; justify-content:space-between; align-items:center; margin:12px 0 16px}
+.search{display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:12px; padding:8px 10px; background:#0b1020; min-width:260px}
+.search input{all:unset; width:220px}
+.filters{display:flex; gap:12px}
+label{display:flex; flex-direction:column; gap:6px; font-size:12px; color:var(--muted)}
+select,input[type="time"],input[type="text"]{padding:10px 12px; border-radius:10px; border:1px solid var(--border); background:#0b1020; color:var(--text)}
+
+.empty{display:grid; place-items:center; gap:6px; border:1px dashed var(--border); border-radius:14px; padding:30px; color:var(--muted)}
+
+/* Analytics */
+.analytics{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px}
+.metric{display:flex; align-items:center; gap:14px; border:1px solid var(--border); border-radius:16px; padding:14px; background:linear-gradient(180deg, #0b122a, #0b1124)}
+.ring{--value:0; --size:56px; width:var(--size); height:var(--size); border-radius:50%; background:
+	radial-gradient(circle closest-side, #0b1020 75%, transparent 76% 100%),
+	conic-gradient(var(--primary) calc(var(--value)*1%), #263158 0);
+	box-shadow:inset 0 0 0 6px #0b1020, 0 0 0 1px var(--border);
+}
+.big-number{font-size:32px; font-weight:700}
+.spark-bars{display:flex; gap:6px; align-items:flex-end; height:56px}
+.spark-bars .bar{width:10px; background:#334066; border-radius:4px}
+.spark-bars .bar.on{background:linear-gradient(180deg, #6c8cff, #3956ff)}
+.metric-label{display:flex; flex-direction:column; gap:2px}
+
+/* Modal */
+.modal{border:none; border-radius:16px; padding:0; overflow:hidden; background:linear-gradient(180deg, #0f1633, #0c1229); color:var(--text); box-shadow:var(--shadow); width:min(560px, calc(100vw - 24px))}
+.modal::backdrop{background:rgba(0,0,0,.5)}
+.modal form header{display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--border)}
+.modal form footer{display:flex; gap:10px; justify-content:flex-end; padding:14px 16px; border-top:1px solid var(--border)}
+.form-grid{display:grid; grid-template-columns:1fr 160px 160px; gap:12px; padding:16px}
+@media (max-width:720px){.form-grid{grid-template-columns:1fr;}}
+
+/* Toast */
+.toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px); background:#0b1020; border:1px solid var(--border); padding:10px 14px; border-radius:12px; opacity:0; pointer-events:none; transition:all .25s ease; box-shadow:var(--shadow)}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+/* Utilities */
+.row{display:flex; align-items:center; gap:10px}
+.right{margin-left:auto}
+.strike{text-decoration:line-through; color:#6c7696}
+
+/* Time badge */
+.badge{font-variant-numeric:tabular-nums; font-size:12px; padding:4px 8px; border-radius:8px; border:1px solid var(--ring); background:#0b1020; color:#b8c2de}
+

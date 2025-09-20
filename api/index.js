@@ -12,6 +12,6 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use('/api/reminders', require('./routes/reminders'));
+app.use('/api/reminders', require('./routes/reminder'));
 
 module.exports = app; // Export for Vercel

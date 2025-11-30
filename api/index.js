@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const connectDB = require('./config/db');
+const rateLimit = require('express-rate-limit');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -11,6 +13,17 @@ const app = express();
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
+if (process.env.REQUEST_LOGGING === '1') {
+	app.use(morgan('combined'));
+}
+
+// Rate limit only mutating routes
+const writeLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	max: 100,
+	standardHeaders: true,
+	legacyHeaders: false,
+});
 
 // Health
 app.get('/api/health', (_req, res) => res.json({ ok: true }));

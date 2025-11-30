@@ -108,6 +108,47 @@ const analytics = async (req, res, next) => {
   } catch (e) { next(e); }
 };
 
+// Detailed stats per reminder: streak, 7-day and 30-day completion percentages
+function calculateStreak(completedSet, today) {
+  let streak = 0;
+  let cursor = new Date(today.getTime());
+  while (completedSet.has(cursor.getTime())) {
+    streak += 1;
+    cursor = new Date(cursor.getTime() - 86400000); // minus 1 day
+  }
+  return streak;
+}
+
+function windowCompletion(completedSet, today, days) {
+  let hits = 0;
+  for (let i = 0; i < days; i++) {
+    const d = new Date(today.getTime() - i * 86400000);
+    if (completedSet.has(d.getTime())) hits += 1;
+  }
+  return Math.round((hits / days) * 100);
+}
+
+const reminderStats = async (req, res, next) => {
+  try {
+    const today = startOfUTCDay();
+    const reminders = await Reminder.find().lean();
+    const stats = reminders.map(r => {
+      const completedDates = (r.completedDates || []).map(d => startOfUTCDay(new Date(d)).getTime());
+      const set = new Set(completedDates);
+      return {
+        id: r._id,
+        title: r.title,
+        type: r.type,
+        isActive: r.isActive,
+        streak: calculateStreak(set, today),
+        last30DayCompletion: windowCompletion(set, today, 30),
+        last7DayCompletion: windowCompletion(set, today, 7),
+      };
+    });
+    res.json({ stats, generatedAt: new Date().toISOString() });
+  } catch (e) { next(e); }
+};
+
 const runDueNotifications = async (req, res, next) => {
   try {
     const due = await processDueNotifications();
@@ -123,6 +164,7 @@ module.exports = {
   toggleActive,
   markCompleteToday,
   analytics,
+  reminderStats,
   runDueNotifications,
   processDueNotifications,
 };

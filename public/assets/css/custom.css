@@ -1,0 +1,19 @@
+/* Card Hover Effect */
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Login Hover Effect */
+.login-hover {
+    transition: all 0.3s ease;
+}
+
+.login-hover:hover {
+    background-color: rgb(229 231 235);
+    border-radius: 0.5rem;
+}

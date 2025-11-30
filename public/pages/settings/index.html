@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Habit Sync</title>
+    <link rel="icon" href="../../assets/images/icons/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../assets/images/icons/logo.png">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/custom.css">
+    <script src="../../assets/js/components/favicon.js" defer></script>
+</head>
+<body class="bg-gray-50">
+    <!-- Navbar (shared component) -->
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50" data-app-navbar></nav>
+
+    <!-- Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-6">Settings</h1>
+
+        <!-- Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Account Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 card-hover">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Account</h2>
+                <div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 items-center mb-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Avatar</label>
+                            <div class="flex items-center gap-4">
+                                <img id="avatarPreview" src="" alt="Avatar" class="w-16 h-16 rounded-full bg-gray-100 object-cover">
+                                <input type="file" id="avatarInput" accept="image/*" class="block w-full text-sm text-gray-600">
+                            </div>
+                        </div>
+                        <div class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Name</label>
+                                <input type="text" id="profileName" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                                <input type="email" id="profileEmail" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <button id="saveProfile" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Save Profile</button>
+                        <button id="logoutBtn" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Logout</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Display Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 card-hover">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Display</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                        <span class="text-gray-700">Dark mode</span>
+                        <input type="checkbox" id="themeToggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded">
+                    </label>
+                    <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                        <span class="text-gray-700">High contrast</span>
+                        <input type="checkbox" id="contrastToggle" class="w-5 h-5 text-blue-600 border-gray-300 rounded">
+                    </label>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Font size</label>
+                        <input type="range" id="fontScale" min="90" max="120" value="100" class="w-full">
+                        <p class="text-sm text-gray-500 mt-1">Adjust between 90% and 120%.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notifications Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 card-hover">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Notifications</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                        <span class="text-gray-700">Push reminders</span>
+                        <input type="checkbox" id="notifyPush" class="w-5 h-5 text-blue-600 border-gray-300 rounded">
+                    </label>
+                    <label class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+                        <span class="text-gray-700">Email reminders</span>
+                        <input type="checkbox" id="notifyEmail" class="w-5 h-5 text-blue-600 border-gray-300 rounded">
+                    </label>
+                    <div class="sm:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Reminder frequency</label>
+                        <select id="notifyFrequency" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Custom">Custom</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Security Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 card-hover">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Security</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="resetPassword" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Reset password</button>
+                    <button id="setup2FA" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Set up 2FA</button>
+                </div>
+            </section>
+
+            <!-- Privacy Card -->
+            <section class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 card-hover md:col-span-2">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Privacy</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button id="exportData" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50">Export my data</button>
+                    <button id="deleteAccount" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Delete account</button>
+                </div>
+                <p class="text-sm text-gray-500 mt-3">Deleting your account is permanent. You will lose all data.</p>
+            </section>
+        </div>
+    </main>
+
+    <script src="../../assets/js/components/navbar.js" defer></script>
+    <script src="../../assets/js/main.js" defer></script>
+    <script type="module" src="../../assets/js/pages/settings.js"></script>
+</body>
+</html>

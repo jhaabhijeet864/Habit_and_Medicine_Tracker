@@ -1,16 +1,23 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Habit and Medicine Tracker Application",
+  "main": "api/index.js",
   "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jhaabhijeet864/Habit_and_Medicine_Tracker.git"
   },
-  "keywords": [],
+  "keywords": [
+    "habit-tracker",
+    "medicine-tracker",
+    "health",
+    "reminders"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -20,8 +27,11 @@
   "homepage": "https://github.com/jhaabhijeet864/Habit_and_Medicine_Tracker#readme",
   "dependencies": {
     "@tailwindcss/cli": "^4.1.17",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.1",
     "node-cron": "^4.2.1",
     "nodemon": "^3.1.10",

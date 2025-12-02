@@ -1,14 +1,36 @@
-// App constants and API endpoints
-export const APP_NAME = 'Habit Sync';
-export const API_BASE = '/api';
-
+// API Endpoints
 export const ENDPOINTS = {
+  // Authentication
   auth: {
-    login: `${API_BASE}/auth/login`,
-    signup: `${API_BASE}/auth/signup`,
-    me: `${API_BASE}/auth/me`,
+    login: '/users/login',
+    signup: '/users/register',
+    me: '/users/profile'
   },
-  habits: `${API_BASE}/habits`,
-  medicines: `${API_BASE}/medicines`,
-  users: `${API_BASE}/users`,
+  
+  // Habits
+  habits: '/habits',
+  
+  // Medicines
+  medicines: '/medicines',
+  
+  // Reminders
+  reminders: '/reminders',
+  
+  // User
+  user: {
+    profile: '/users/profile',
+    update: '/users/profile',
+    delete: '/users/profile'
+  }
 };
+
+// Storage keys
+export const STORAGE_KEYS = {
+  TOKEN: 'auth_token',
+  USER: 'user_data',
+  THEME: 'theme_preference'
+};
+
+// App constants
+export const APP_NAME = 'Habit & Medicine Tracker';
+export const TOKEN_EXPIRY_DAYS = 30;

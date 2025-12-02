@@ -10,6 +10,8 @@ const {
   getHabitStats
 } = require('../controllers/habitController');
 const { protect } = require('../middleware/auth');
+const mongoose = require('mongoose');
+const habitSchema = require('../models/habitModel');
 
 // All routes are protected
 router.use(protect);
@@ -25,5 +27,7 @@ router.route('/:id')
 
 router.post('/:id/log', logHabitCompletion);
 router.get('/:id/stats', getHabitStats);
+
+module.exports = mongoose.model('Habit', habitSchema);
 
 module.exports = router;

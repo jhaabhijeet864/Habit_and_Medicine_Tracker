@@ -153,4 +153,6 @@ habitSchema.pre('save', function(next) {
 });
 
 module.exports = {
-};const Habit = require('../models/habit');module.exports = mongoose.model('Habit', habitSchema);
+  User: mongoose.model('User', userSchema),
+  Habit: mongoose.model('Habit', habitSchema)
+};

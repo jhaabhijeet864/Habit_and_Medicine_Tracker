@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password - Habit Sync</title>
+    <link rel="icon" href="../../assets/images/icons/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../assets/images/icons/logo.png">
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="../../assets/css/custom.css">
+    <script src="../../assets/js/components/favicon.js" defer></script>
+    <script type="module" src="../../assets/js/pages/auth.js"></script>
+</head>
+<body class="bg-gray-50">
+  <div class="min-h-screen flex items-center justify-center px-4 py-12">
+    <div class="bg-white rounded-2xl shadow-xl p-10 w-full max-w-md mx-auto">
+      <div class="flex justify-center mb-6">
+        <img src="../../assets/images/icons/logo.png" alt="Habit Sync Logo" class="w-16 h-16" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="w-16 h-16 bg-blue-600 rounded-full hidden items-center justify-center">
+          <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold text-blue-600 text-center mb-2">Reset Password</h1>
+      <p class="text-gray-600 text-center mb-8">Enter your new password below.</p>
+
+      <form class="space-y-5" data-reset-form>
+        <div>
+          <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">New Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+            required
+          >
+        </div>
+        <div>
+          <label for="confirmPassword" class="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="••••••••"
+            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+            required
+          >
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition"
+        >
+          Update Password
+        </button>
+        <p class="text-center text-gray-600 text-sm mt-2">
+          Remembered it?
+          <a href="login.html" class="text-blue-600 hover:text-blue-700 font-semibold">Log in</a>
+        </p>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
+

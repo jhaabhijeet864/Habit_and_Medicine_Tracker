@@ -1,10 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const { getReminders, createReminder, updateReminder } = require('../controllers/reminderController');
+const {
+  getReminders,
+  createReminder,
+  updateReminder,
+  deleteReminder,
+  snoozeReminder
+} = require('../controllers/reminderController');
+const { protect } = require('../middleware/auth');
 
-router.get('/', getReminders);
-router.post('/', createReminder);
-router.put('/:id', updateReminder);
-// Add delete route later if needed
+// All reminder routes are protected
+router.use(protect);
+
+router.route('/')
+  .get(getReminders)
+  .post(createReminder);
+
+router.route('/:id')
+  .put(updateReminder)
+  .delete(deleteReminder);
+
+router.put('/:id/snooze', snoozeReminder);
 
 module.exports = router;

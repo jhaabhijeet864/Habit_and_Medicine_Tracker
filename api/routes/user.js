@@ -9,7 +9,7 @@ const {
 } = require('../controllers/userController');
 const { protect } = require('../middleware/auth');
 
-// Public routes
+// Public routes (legacy)
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 

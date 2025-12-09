@@ -9,7 +9,7 @@ const generateToken = (id) => {
 };
 
 // @desc    Register new user
-// @route   POST /api/users/register
+// @route   POST /api/auth/signup
 // @access  Public
 const registerUser = async (req, res, next) => {
   try {
@@ -54,7 +54,7 @@ const registerUser = async (req, res, next) => {
 };
 
 // @desc    Login user
-// @route   POST /api/users/login
+// @route   POST /api/auth/login
 // @access  Public
 const loginUser = async (req, res, next) => {
   try {
@@ -197,7 +197,9 @@ const deleteUser = async (req, res, next) => {
 
 module.exports = {
   registerUser,
+  signupUser: registerUser, // alias for clarity
   loginUser,
+  getMe: getUserProfile,
   getUserProfile,
   updateUserProfile,
   deleteUser

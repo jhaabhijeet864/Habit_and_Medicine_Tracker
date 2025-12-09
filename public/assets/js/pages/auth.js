@@ -65,6 +65,52 @@ function handleSignup(form) {
   });
 }
 
+function handleForgotPassword(form) {
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const email = fd.get('email');
+    if (!required(email) || !isEmail(email)) return showToast('Enter a valid email', { type: 'warning' });
+    try {
+      Loader.show('Sending reset link...');
+      const { data } = await api.post('/auth/forgot-password', { email });
+      const msg = data?.message || 'If that email exists, a reset link was sent.';
+      showToast(msg, { type: 'success', duration: 5000 });
+    } catch (err) {
+      showToast(getErrorMessage(err), { type: 'error' });
+    } finally { Loader.hide(); }
+  });
+}
+
+function handleResetPassword(form) {
+  if (!form) return;
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if (!token) {
+    showToast('Reset token missing. Use the link from your email.', { type: 'error', duration: 6000 });
+    form.querySelector('button[type="submit"]')?.setAttribute('disabled', 'true');
+    return;
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const password = fd.get('password');
+    const confirm = fd.get('confirmPassword');
+    if (!minLength(password, 6)) return showToast('Password must be 6+ chars', { type: 'warning' });
+    if (password !== confirm) return showToast('Passwords do not match', { type: 'warning' });
+    try {
+      Loader.show('Updating password...');
+      await api.post(`/auth/reset-password/${token}`, { password });
+      showToast('Password updated. Please log in.', { type: 'success' });
+      setTimeout(() => { window.location.href = '/pages/auth/login.html'; }, 600);
+    } catch (err) {
+      showToast(getErrorMessage(err), { type: 'error' });
+    } finally { Loader.hide(); }
+  });
+}
+
 (() => {
   // hydrate stored token on load so API client is ready
   const storedToken = storage.get(TOKEN_KEY);
@@ -72,6 +118,11 @@ function handleSignup(form) {
 
   const loginForm = document.querySelector('[data-login-form]') || document.getElementById('loginForm');
   const signupForm = document.querySelector('[data-signup-form]') || document.getElementById('signupForm');
+  const forgotForm = document.querySelector('[data-forgot-form]');
+  const resetForm = document.querySelector('[data-reset-form]');
+
   handleLogin(loginForm);
   handleSignup(signupForm);
+  handleForgotPassword(forgotForm);
+  handleResetPassword(resetForm);
 })();

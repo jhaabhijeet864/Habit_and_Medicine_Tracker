@@ -13,6 +13,17 @@ const protect = async (req, res, next) => {
       // Verify token
       const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
 
+      // Check if it's an admin token
+      if (decoded.id === 'admin') {
+        req.user = {
+          _id: 'admin',
+          name: 'Administrator',
+          email: process.env.ADMIN_EMAIL,
+          isAdmin: true
+        };
+        return next();
+      }
+
       // Get user from token
       req.user = await User.findById(decoded.id).select('-password');
 

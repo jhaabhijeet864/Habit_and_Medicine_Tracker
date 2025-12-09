@@ -68,6 +68,25 @@ const loginUser = async (req, res, next) => {
       });
     }
 
+    // Check for admin credentials first
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+    
+    if (email === adminEmail && password === adminPassword) {
+      // Admin login - bypass database check
+      const adminToken = generateToken('admin');
+      return res.status(200).json({
+        success: true,
+        data: {
+          _id: 'admin',
+          name: 'Administrator',
+          email: adminEmail,
+          isAdmin: true,
+          token: adminToken
+        }
+      });
+    }
+
     // Find user and include password
     const user = await User.findOne({ email }).select('+password');
     if (!user) {

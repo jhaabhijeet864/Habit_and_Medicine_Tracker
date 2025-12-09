@@ -29,13 +29,18 @@ function handleLogin(form) {
     if (!minLength(password, 6)) return showToast('Password must be 6+ chars', { type: 'warning' });
     try {
       Loader.show('Signing in...');
-      const { data } = await api.post('/auth/login', { email, password });
-      const user = data?.data;
-      if (!user?.token) throw new Error('No token returned');
+      const response = await api.post('/auth/login', { email, password });
+      console.log('Login response:', response);
+      const user = response?.data;
+      if (!user?.token) {
+        console.error('No token in response:', response);
+        throw new Error('No token returned');
+      }
       saveSession(user, user.token);
       showToast('Logged in', { type: 'success' });
       location.href = '/pages/dashboard/index.html';
     } catch (err) {
+      console.error('Login error:', err);
       showToast(getErrorMessage(err), { type: 'error' });
     } finally { Loader.hide(); }
   });
@@ -53,13 +58,18 @@ function handleSignup(form) {
     if (!minLength(password, 6)) return showToast('Password must be 6+ chars', { type: 'warning' });
     try {
       Loader.show('Creating account...');
-      const { data } = await api.post('/auth/signup', { name, email, password });
-      const user = data?.data;
-      if (!user?.token) throw new Error('No token returned');
+      const response = await api.post('/auth/signup', { name, email, password });
+      console.log('Signup response:', response);
+      const user = response?.data;
+      if (!user?.token) {
+        console.error('No token in response:', response);
+        throw new Error('No token returned');
+      }
       saveSession(user, user.token);
       showToast('Account created', { type: 'success' });
       location.href = '/pages/dashboard/index.html';
     } catch (err) {
+      console.error('Signup error:', err);
       showToast(getErrorMessage(err), { type: 'error' });
     } finally { Loader.hide(); }
   });

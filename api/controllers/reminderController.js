@@ -46,6 +46,25 @@ const updateReminder = async (req, res, next) => {
   }
 };
 
+// @desc    Snooze a reminder for N minutes (default 10)
+// @route   PUT /api/reminders/:id/snooze
+// @access  Private
+const snoozeReminder = async (req, res, next) => {
+  try {
+    const minutes = Number(req.body?.minutes) || 10;
+    const reminder = await Reminder.findById(req.params.id);
+    if (!reminder) return res.status(404).json({ success: false, message: 'Reminder not found' });
+    if (reminder.user.toString() !== req.user.id) {
+      return res.status(403).json({ success: false, message: 'Not authorized to snooze this reminder' });
+    }
+    reminder.snoozedUntil = new Date(Date.now() + minutes * 60 * 1000);
+    await reminder.save();
+    res.status(200).json({ success: true, data: reminder });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc    Delete a reminder
 // @route   DELETE /api/reminders/:id
 // @access  Private
@@ -63,4 +82,4 @@ const deleteReminder = async (req, res, next) => {
   }
 };
 
-module.exports = { getReminders, createReminder, updateReminder, deleteReminder };
+module.exports = { getReminders, createReminder, updateReminder, deleteReminder, snoozeReminder };

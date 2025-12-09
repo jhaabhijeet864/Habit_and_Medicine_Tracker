@@ -5,6 +5,7 @@ require('dotenv').config();
 const { connectDB } = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 const { rateLimiter } = require('./middleware/rateLimit');
+const { startReminderScheduler } = require('./services/reminderScheduler');
 
 // Connect to MongoDB
 connectDB();
@@ -52,6 +53,9 @@ app.get('/api/health', (req, res) => {
 
 // Error handler (must be last)
 app.use(errorHandler);
+
+// Background jobs
+startReminderScheduler();
 
 // Start server
 const PORT = process.env.PORT || 5000;

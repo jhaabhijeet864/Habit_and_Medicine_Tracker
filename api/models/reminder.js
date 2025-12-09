@@ -47,6 +47,10 @@ const reminderSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  snoozedUntil: {
+    type: Date,
+    default: null
+  },
   createdAt: {
     type: Date,
     default: Date.now

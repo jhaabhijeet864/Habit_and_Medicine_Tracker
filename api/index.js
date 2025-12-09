@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // API Routes
+app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/user'));
 app.use('/api/habits', require('./routes/habit'));
 app.use('/api/medicines', require('./routes/medicine'));

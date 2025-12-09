@@ -8,6 +8,11 @@ const createReminder = (req, res) => {
   res.status(201).json({ message: 'Success! Created a new reminder.' });
 };
 
-// Add update/delete functions here...
+// @desc    Update an existing reminder
+const updateReminder = (req, res) => {
+  res.status(200).json({ message: `Success! Updated reminder ${req.params.id}.` });
+};
 
-module.exports = { getReminders, createReminder, /* ... */ };
+// Add delete functions here...
+
+module.exports = { getReminders, createReminder, updateReminder };

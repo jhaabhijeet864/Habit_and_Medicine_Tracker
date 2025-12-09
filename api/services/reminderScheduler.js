@@ -1,5 +1,7 @@
 const cron = require('node-cron');
 const Reminder = require('../models/reminder');
+const User = require('../models/user');
+const { sendReminderNotification } = require('./notificationService');
 
 function getLocalTimeParts(timezone) {
   const formatter = new Intl.DateTimeFormat('en-US', {
@@ -16,19 +18,18 @@ function getLocalTimeParts(timezone) {
 
 async function checkReminders() {
   const now = new Date();
-  const activeReminders = await Reminder.find({ isActive: true });
+  const activeReminders = await Reminder.find({ isActive: true }).lean();
 
   for (const reminder of activeReminders) {
-    // skip snoozed reminders
-    if (reminder.snoozedUntil && reminder.snoozedUntil > now) continue;
+    if (reminder.snoozedUntil && new Date(reminder.snoozedUntil) > now) continue;
 
     const { time, weekday } = getLocalTimeParts(reminder.timezone);
     const matchesDay = !reminder.days || reminder.days.includes(weekday);
     const matchesTime = reminder.time === time;
 
     if (matchesDay && matchesTime) {
-      // In a real app, trigger notification delivery here (email/push/etc.)
-      console.log(`[reminder] Triggering reminder ${reminder._id} for user ${reminder.user} @ ${time} ${weekday}`);
+      const user = await User.findById(reminder.user).lean();
+      await sendReminderNotification({ user, reminder });
     }
   }
 }

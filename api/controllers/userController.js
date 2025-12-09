@@ -204,3 +204,71 @@ module.exports = {
   updateUserProfile,
   deleteUser
 };
+
+// @desc    Forgot password - send reset link
+// @route   POST /api/auth/forgot-password
+// @access  Public
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(200).json({ success: true, message: 'If that email exists, a reset link was sent.' });
+    }
+
+    const resetToken = user.setPasswordResetToken();
+    await user.save({ validateBeforeSave: false });
+
+    const resetUrl = `${req.protocol}://${req.get('host')}/api/auth/reset-password/${resetToken}`;
+    res.status(200).json({
+      success: true,
+      message: 'Reset link generated',
+      data: { resetUrl }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Reset password
+// @route   POST /api/auth/reset-password/:token
+// @access  Public
+const resetPassword = async (req, res, next) => {
+  try {
+    const crypto = require('crypto');
+    const hashed = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    const user = await User.findOne({
+      resetPasswordToken: hashed,
+      resetPasswordExpire: { $gt: Date.now() }
+    }).select('+password');
+
+    if (!user) {
+      return res.status(400).json({ success: false, message: 'Token invalid or expired' });
+    }
+
+    if (!req.body.password || req.body.password.length < 6) {
+      return res.status(400).json({ success: false, message: 'Password must be 6+ characters' });
+    }
+
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+    await user.save();
+
+    res.status(200).json({ success: true, message: 'Password updated successfully' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  registerUser,
+  signupUser: registerUser, // alias for clarity
+  loginUser,
+  getMe: getUserProfile,
+  getUserProfile,
+  updateUserProfile,
+  deleteUser,
+  forgotPassword,
+  resetPassword
+};

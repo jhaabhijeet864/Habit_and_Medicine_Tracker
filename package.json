@@ -1,16 +1,18 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Daily Habit & Medicine Tracker - A web application to help users remember medications and follow daily habits",
+  "main": "api/index.js",
   "scripts": {
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jhaabhijeet864/Habit_and_Medicine_Tracker.git"
   },
-  "keywords": [],
+  "keywords": ["habit-tracker", "medicine-reminder", "health", "wellness"],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
